@@ -6,12 +6,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jiayue.cinema.common.ResultCode;
 import com.jiayue.cinema.entity.Cinema;
 import com.jiayue.cinema.entity.Hall;
+import com.jiayue.cinema.entity.Seat;
 import com.jiayue.cinema.exception.BusinessException;
 import com.jiayue.cinema.mapper.CinemaMapper;
 import com.jiayue.cinema.mapper.HallMapper;
+import com.jiayue.cinema.mapper.SeatMapper;
 import com.jiayue.cinema.service.CinemaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class CinemaServiceImpl implements CinemaService {
     
     private final CinemaMapper cinemaMapper;
     private final HallMapper hallMapper;
+    private final SeatMapper seatMapper;
     
     @Override
     public Page<Cinema> getCinemaPage(Integer page, Integer size, String keyword) {
@@ -91,13 +95,18 @@ public class CinemaServiceImpl implements CinemaService {
     }
     
     @Override
+    @Transactional
     public void addHall(Hall hall) {
         hall.setStatus(1);
         hall.setTotalSeats(hall.getRows() * hall.getCols());
         hallMapper.insert(hall);
+        
+        // 自动生成座位
+        generateSeats(hall);
     }
     
     @Override
+    @Transactional
     public void updateHall(Hall hall) {
         Hall existing = hallMapper.selectById(hall.getId());
         if (existing == null) {
@@ -105,6 +114,14 @@ public class CinemaServiceImpl implements CinemaService {
         }
         hall.setTotalSeats(hall.getRows() * hall.getCols());
         hallMapper.updateById(hall);
+        
+        // 如果行数或列数改变，重新生成座位
+        if (!existing.getRows().equals(hall.getRows()) || !existing.getCols().equals(hall.getCols())) {
+            // 删除旧座位
+            seatMapper.delete(new LambdaQueryWrapper<Seat>().eq(Seat::getHallId, hall.getId()));
+            // 生成新座位
+            generateSeats(hall);
+        }
     }
     
     @Override
@@ -114,5 +131,26 @@ public class CinemaServiceImpl implements CinemaService {
             throw new BusinessException(ResultCode.NOT_FOUND, "影厅不存在");
         }
         hallMapper.deleteById(id);
+    }
+    
+    /**
+     * 为影厅自动生成座位
+     */
+    private void generateSeats(Hall hall) {
+        for (int row = 1; row <= hall.getRows(); row++) {
+            for (int col = 1; col <= hall.getCols(); col++) {
+                Seat seat = new Seat();
+                seat.setHallId(hall.getId());
+                seat.setRowNum(row);
+                seat.setColNum(col);
+                // 座位标签：A1, A2, B1, B2 等
+                char rowChar = (char) ('A' + row - 1);
+                seat.setSeatLabel(rowChar + String.valueOf(col));
+                seat.setSeatType(0); // 0: 普通座位, 1: VIP座位
+                seat.setStatus(0); // 0: 可用
+                seat.setDeleted(0);
+                seatMapper.insert(seat);
+            }
+        }
     }
 }

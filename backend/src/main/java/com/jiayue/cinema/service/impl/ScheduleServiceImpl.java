@@ -138,13 +138,40 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     @Transactional
     public void addSchedule(Schedule schedule) {
+        // 验证必要字段
+        if (schedule.getMovieId() == null || schedule.getCinemaId() == null || 
+            schedule.getHallId() == null || schedule.getShowDate() == null || 
+            schedule.getStartTime() == null || schedule.getPrice() == null) {
+            throw new BusinessException(ResultCode.PARAM_ERROR, "排片信息不完整");
+        }
+        
+        // 获取电影信息，计算结束时间
+        Movie movie = movieMapper.selectById(schedule.getMovieId());
+        if (movie == null) {
+            throw new BusinessException(ResultCode.MOVIE_NOT_FOUND);
+        }
+        
+        // 自动计算结束时间 = 开始时间 + 电影时长 + 15分钟清场时间
+        LocalTime endTime = schedule.getStartTime().plusMinutes(movie.getDuration() + 15);
+        schedule.setEndTime(endTime);
+        
         schedule.setStatus(1);
+        schedule.setDeleted(0);
         scheduleMapper.insert(schedule);
+        
+        // 验证 Schedule ID 是否正确生成
+        if (schedule.getId() == null || schedule.getId() <= 0) {
+            throw new BusinessException(ResultCode.INTERNAL_ERROR, "排片创建失败，无法获取排片ID");
+        }
         
         // 初始化场次座位
         List<Seat> seats = seatMapper.selectList(
                 new LambdaQueryWrapper<Seat>().eq(Seat::getHallId, schedule.getHallId())
         );
+        
+        if (seats == null || seats.isEmpty()) {
+            throw new BusinessException(ResultCode.INTERNAL_ERROR, "影厅中没有座位，请先为影厅添加座位");
+        }
         
         for (Seat seat : seats) {
             ScheduleSeat scheduleSeat = new ScheduleSeat();
