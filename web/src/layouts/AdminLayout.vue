@@ -43,6 +43,10 @@
           <el-icon><Ticket /></el-icon>
           <span>优惠券管理</span>
         </el-menu-item>
+        <el-menu-item index="/admin/snacks">
+          <el-icon><ShoppingCart /></el-icon>
+          <span>商品管理</span>
+        </el-menu-item>
         <el-menu-item index="/admin/faq">
           <el-icon><QuestionFilled /></el-icon>
           <span>FAQ 管理</span>
@@ -79,7 +83,7 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { ElMessage } from 'element-plus'
-import { QuestionFilled, Ticket } from '@element-plus/icons-vue'
+import { QuestionFilled, Ticket, ShoppingCart } from '@element-plus/icons-vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -94,6 +98,7 @@ const titleMap = {
   '/admin/users': '用户管理',
   '/admin/member-config': '会员体系配置',
   '/admin/coupons': '优惠券管理',
+  '/admin/snacks': '商品管理',
   '/admin/faq': 'FAQ 管理',
   '/admin/system': '系统管理',
 }

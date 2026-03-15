@@ -44,6 +44,7 @@ const adminRoutes = [
       { path: 'users', name: 'AdminUsers', component: () => import('@/views/admin/Users.vue') },
       { path: 'member-config', name: 'AdminMemberConfig', component: () => import('@/views/admin/MemberConfig.vue') },
       { path: 'coupons', name: 'AdminCoupons', component: () => import('@/views/admin/CouponManage.vue') },
+      { path: 'snacks', name: 'AdminSnacks', component: () => import('@/views/admin/SnackManage.vue') },
       { path: 'system', name: 'AdminSystem', component: () => import('@/views/admin/System.vue') },
       { path: 'faq', name: 'AdminFAQ', component: () => import('@/views/admin/FAQManage.vue') },
     ]

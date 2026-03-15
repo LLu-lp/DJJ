@@ -147,7 +147,7 @@ const fetchMemberLevels = async () => {
     if (res.code === 200) {
       // 如果后端没有在会员信息中返回等级数据，则从这个接口获取
       if (!memberLevels.value || memberLevels.value.length === 0) {
-        memberLevels.value = res.data || []
+      memberLevels.value = res.data || []
       }
     }
   } catch (err) {
