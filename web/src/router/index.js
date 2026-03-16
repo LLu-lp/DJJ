@@ -24,6 +24,7 @@ const userRoutes = [
       { path: 'chat', name: 'Chat', component: () => import('@/views/user/Chat.vue'), meta: { requiresAuth: true } },
       { path: 'favorites', name: 'Favorites', component: () => import('@/views/user/Favorites.vue'), meta: { requiresAuth: true } },
       { path: 'digital-tickets', name: 'DigitalTickets', component: () => import('@/views/user/DigitalTickets.vue'), meta: { requiresAuth: true } },
+      { path: 'my-comments', name: 'MyComments', component: () => import('@/views/user/MyComments.vue'), meta: { requiresAuth: true } },
     ]
   }
 ]
@@ -47,6 +48,7 @@ const adminRoutes = [
       { path: 'snacks', name: 'AdminSnacks', component: () => import('@/views/admin/SnackManage.vue') },
       { path: 'system', name: 'AdminSystem', component: () => import('@/views/admin/System.vue') },
       { path: 'faq', name: 'AdminFAQ', component: () => import('@/views/admin/FAQManage.vue') },
+      { path: 'comments', name: 'AdminComments', component: () => import('@/views/admin/CommentManage.vue') },
     ]
   }
 ]

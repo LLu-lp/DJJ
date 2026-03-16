@@ -35,6 +35,7 @@ C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\service\i
 C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\util\JwtUtil.java
 C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\controller\CouponController.java
 C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\entity\MemberInfo.java
+C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\controller\AdminCouponController.java
 C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\dto\LoginDTO.java
 C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\mapper\SystemLogMapper.java
 C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\entity\Movie.java
@@ -81,6 +82,7 @@ C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\config\My
 C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\service\impl\ChatMessageServiceImpl.java
 C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\controller\CarouselController.java
 C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\mapper\UserMapper.java
+C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\controller\AdminCommentController.java
 C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\controller\ChatHistoryController.java
 C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\controller\MovieController.java
 C:\Users\10510\Desktop\DJJ\DJJ\backend\src\main\java\com\jiayue\cinema\service\ScheduleService.java

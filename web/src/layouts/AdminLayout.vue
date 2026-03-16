@@ -51,6 +51,10 @@
           <el-icon><QuestionFilled /></el-icon>
           <span>FAQ 管理</span>
         </el-menu-item>
+        <el-menu-item index="/admin/comments">
+          <el-icon><ChatDotSquare /></el-icon>
+          <span>评论管理</span>
+        </el-menu-item>
         <el-menu-item index="/admin/system">
           <el-icon><Setting /></el-icon>
           <span>系统管理</span>
@@ -83,7 +87,7 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { ElMessage } from 'element-plus'
-import { QuestionFilled, Ticket, ShoppingCart } from '@element-plus/icons-vue'
+import { QuestionFilled, Ticket, ShoppingCart, ChatDotSquare } from '@element-plus/icons-vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -100,6 +104,7 @@ const titleMap = {
   '/admin/coupons': '优惠券管理',
   '/admin/snacks': '商品管理',
   '/admin/faq': 'FAQ 管理',
+  '/admin/comments': '评论管理',
   '/admin/system': '系统管理',
 }
 const pageTitle = computed(() => titleMap[route.path] || '管理后台')

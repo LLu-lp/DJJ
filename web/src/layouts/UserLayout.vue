@@ -33,6 +33,7 @@
                   <el-dropdown-item command="orders">我的订单</el-dropdown-item>
                   <el-dropdown-item command="member">会员中心</el-dropdown-item>
                   <el-dropdown-item command="favorites">我的收藏</el-dropdown-item>
+                  <el-dropdown-item command="myComments">我的评论</el-dropdown-item>
                   <el-dropdown-item command="digitalTickets">数字纪念票</el-dropdown-item>
                   <el-dropdown-item divided command="logout">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
@@ -78,10 +79,11 @@ function handleCommand(cmd) {
     router.push('/member')
   } else if (cmd === 'favorites') {
     router.push('/favorites')
+  } else if (cmd === 'myComments') {
+    router.push('/my-comments')
   } else if (cmd === 'digitalTickets') {
     router.push('/digital-tickets')
   }
-
 }
 </script>
 
