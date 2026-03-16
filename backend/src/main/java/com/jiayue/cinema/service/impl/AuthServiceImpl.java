@@ -46,7 +46,25 @@ public class AuthServiceImpl implements AuthService {
         if (user.getStatus() != 1) {
             throw new BusinessException(ResultCode.ACCOUNT_DISABLED);
         }
-        
+
+        // 校验账号角色与登录端是否匹配
+        if (dto.getRole() != null) {
+            int expectedRole = dto.getRole();
+            int actualRole = user.getRole();
+            // 管理员端(2)：只允许 role=2 的账号
+            // 员工端(1)：只允许 role=1 或 role=2 的账号
+            // 用户端(0)：只允许 role=0 的账号
+            boolean roleMismatch = switch (expectedRole) {
+                case 2 -> actualRole != 2;
+                case 1 -> actualRole != 1 && actualRole != 2;
+                case 0 -> actualRole != 0;
+                default -> false;
+            };
+            if (roleMismatch) {
+                throw new BusinessException(ResultCode.FAIL, "账号与登录端不匹配，请使用正确的登录入口");
+            }
+        }
+
         String token = jwtUtil.generateToken(user.getId(), user.getUsername(), user.getRole());
         
         LoginVO vo = new LoginVO();

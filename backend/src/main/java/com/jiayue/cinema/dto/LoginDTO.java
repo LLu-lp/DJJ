@@ -14,4 +14,10 @@ public class LoginDTO {
     
     @NotBlank(message = "密码不能为空")
     private String password;
+
+    /**
+     * 登录端角色：0=用户，1=员工，2=管理员
+     * 前端根据登录Tab传入，后端校验账号角色是否匹配
+     */
+    private Integer role;
 }
